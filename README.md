@@ -14,7 +14,7 @@
 
 5. Piplenie Project
 
-   ```
+```
 pipeline {
   agent {
     kubernetes {
@@ -41,6 +41,6 @@ pipeline {
     }
   }
 }
-   ```
+```
 
    
