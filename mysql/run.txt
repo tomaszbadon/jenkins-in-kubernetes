@@ -1,0 +1,13 @@
+mysql -p -u root  -h 127.0.0.1 -P 3306 < sakila-schema.sql
+
+mysql -p -u root  -h 127.0.0.1 -P 3306 < sakila-data.sql
+
+CREATE USER 'sakila_readonly'@'%' IDENTIFIED BY 'sakila';
+
+GRANT SELECT, SHOW VIEW ON sakila.* TO 'sakila_readonly'@'%';
+
+MYSQL_PWD=sakila
+
+mysql -u sakila_readonly -psakila -h 127.0.0.1 -P 3306 -D sakila -e "SELECT film_id, title, description, release_year FROM film LIMIT 10";
+
+mysql -u sakila_readonly -h mysql-service.mysql.svc.cluster.local -P 3306 -D sakila -e "SELECT film_id, title, description, release_year FROM film LIMIT 10";

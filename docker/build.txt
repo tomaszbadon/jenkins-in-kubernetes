@@ -1,0 +1,7 @@
+docker build -t alpine-jenkins-toolkit:latest
+
+docker run -d alpine-jenkins-toolkit:latest
+
+docker tag alpine-jenkins-toolkit tomaszbadon/alpine-jenkins-toolkit:230220251122
+
+docker push tomaszbadon/alpine-jenkins-toolkit:230220251122

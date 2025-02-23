@@ -1,0 +1,36 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: ubuntu
+      image: ubuntu:latest
+      env:
+        - name: MYSQL_PWD
+          valueFrom: 
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-sakila-db-password
+      command:
+        - cat
+      tty: true
+        '''
+    }
+  }
+  stages {
+    stage('Run MySql Select Executor') {
+      steps {
+        container('ubuntu') {
+          sh "echo ${params.SQL_STATEMENT}"
+          sh 'apt update'
+          sh 'apt-get --assume-yes install mysql-client'
+          sh 'mysql --version'
+          sh "mysql -u sakila_readonly -h mysql-service.mysql.svc.cluster.local -P 3306 -D sakila -e '${params.SQL_STATEMENT}'"
+        }
+      }
+    }
+  }
+}
