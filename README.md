@@ -42,5 +42,5 @@ pipeline {
   }
 }
 ```
-
+[https://medium.com/@cldop.com/deploying-jenkins-on-local-kubernetes-cluster-with-helm-chart-and-argocd-part-2-how-to-setup-d7ffb3170f43]
    
